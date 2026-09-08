@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest';
 import App from './App';
 
 describe('App', () => {
-  it('renders the default heading', () => {
+  it('renders the application heading', () => {
     render(<App />);
     expect(
-      screen.getByRole('heading', { name: 'Get started' }),
+      screen.getByRole('heading', { name: 'Qureight Cat Classifier' }),
     ).toBeInTheDocument();
   });
 });
