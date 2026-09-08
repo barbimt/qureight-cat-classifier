@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Loader2 } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 type ProcessingStateProps = {
   fileName: string;
@@ -14,24 +8,24 @@ type ProcessingStateProps = {
 export const ProcessingState = ({ fileName }: ProcessingStateProps) => {
   return (
     <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Classifying image</CardTitle>
-        <CardDescription>
-          {fileName} was accepted. Classification may take about a minute.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Progress
-          aria-label="Classification progress"
-          className="[&_[data-slot=progress-indicator]]:w-1/3 [&_[data-slot=progress-indicator]]:animate-pulse"
+      <CardContent className="flex flex-col items-center gap-4 py-8 text-center">
+        <Loader2
+          className="size-10 animate-spin text-primary"
+          aria-hidden="true"
         />
-        <p
-          role="status"
-          aria-live="polite"
-          className="text-sm text-muted-foreground"
-        >
-          Classification in progress. Please wait and do not submit again.
-        </p>
+        <div className="space-y-2">
+          <p
+            role="status"
+            aria-live="polite"
+            className="text-lg font-semibold text-primary"
+          >
+            Analysing your image...
+          </p>
+          <p className="text-base text-muted-foreground">
+            This usually takes around one minute.
+          </p>
+          <p className="text-sm text-muted-foreground">{fileName}</p>
+        </div>
       </CardContent>
     </Card>
   );

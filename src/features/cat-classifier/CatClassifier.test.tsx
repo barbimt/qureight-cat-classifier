@@ -83,10 +83,9 @@ describe('CatClassifier', () => {
     await uploadFile(user, createMockFile('cat.jpg', 'image/jpeg'));
     await user.click(screen.getByRole('button', { name: 'Classify image' }));
 
+    expect(screen.getByText('Analysing your image...')).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'Classification in progress. Please wait and do not submit again.',
-      ),
+      screen.getByText('This usually takes around one minute.'),
     ).toBeInTheDocument();
 
     await waitFor(() => {
@@ -107,10 +106,9 @@ describe('CatClassifier', () => {
     await uploadFile(user, createMockFile('cat.jpg', 'image/jpeg'));
     await user.click(screen.getByRole('button', { name: 'Classify image' }));
 
+    expect(screen.getByText('Analysing your image...')).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'Classification in progress. Please wait and do not submit again.',
-      ),
+      screen.getByText('This usually takes around one minute.'),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole('button', { name: 'Classify image' }),
