@@ -16,7 +16,7 @@ const parseMultipartUpload = (
 
     parser.on('file', (_fieldName, fileStream, info) => {
       upload = {
-        filename: info.filename,
+        filename: info.filename ?? '',
         mimeType: info.mimeType,
       };
       fileStream.resume();
@@ -40,6 +40,17 @@ const sendJson = (
   res.end(JSON.stringify(body));
 };
 
+const getNodeClassifierDelayMs = (): number => {
+  const configured = process.env.VITE_CLASSIFIER_DELAY_MS;
+
+  if (configured === undefined || configured === '') {
+    return 60_000;
+  }
+
+  const parsed = Number(configured);
+  return Number.isFinite(parsed) ? parsed : 60_000;
+};
+
 export const handleClassifierRequest = async (
   req: IncomingMessage,
   res: ServerResponse,
@@ -52,7 +63,9 @@ export const handleClassifierRequest = async (
       return;
     }
 
-    const result = await classifyUpload(upload);
+    const result = await classifyUpload(upload, {
+      delayMs: getNodeClassifierDelayMs(),
+    });
     sendJson(res, 200, result);
   } catch (error) {
     if (error instanceof ClassifierRejection) {

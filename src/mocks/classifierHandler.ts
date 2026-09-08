@@ -11,7 +11,8 @@ export class ClassifierRejection extends Error {
 }
 
 export const getClassifierDelayMs = (): number => {
-  const configured = import.meta.env.VITE_CLASSIFIER_DELAY_MS;
+  const configured = import.meta.env?.VITE_CLASSIFIER_DELAY_MS;
+
   if (configured === undefined || configured === '') {
     return 60_000;
   }
@@ -38,14 +39,16 @@ export const classifyUpload = async (
     throw new ClassifierRejection(400, 'Only JPEG images are supported.');
   }
 
-  if (input.filename.toLowerCase().includes('fail')) {
+  const filename = (input.filename ?? '').toLowerCase();
+
+  if (filename.includes('fail')) {
     throw new ClassifierRejection(500, 'Classification failed.');
   }
 
   const delayMs = options?.delayMs ?? getClassifierDelayMs();
   await wait(delayMs);
 
-  const isCat = input.filename.toLowerCase().includes('cat');
+  const isCat = filename.includes('cat');
   return { isCat };
 };
 
