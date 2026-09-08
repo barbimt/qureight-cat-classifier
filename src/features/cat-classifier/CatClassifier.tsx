@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { classifyImage } from '@/api/classifyImage';
+import { ClassificationError } from '@/components/ClassificationError/ClassificationError';
 import { ClassificationResult } from '@/components/ClassificationResult/ClassificationResult';
 import { ImageUpload } from '@/components/ImageUpload/ImageUpload';
 import { ProcessingState } from '@/components/ProcessingState/ProcessingState';
@@ -111,6 +112,14 @@ export const CatClassifier = () => {
     void runClassification(workflow.file, workflow.previewUrl);
   };
 
+  const handleRetry = () => {
+    if (workflow.phase !== 'error') {
+      return;
+    }
+
+    void runClassification(workflow.file, workflow.previewUrl);
+  };
+
   const handleReset = () => {
     revokePreview(getPreviewUrl(workflow));
 
@@ -153,6 +162,13 @@ export const CatClassifier = () => {
         <ClassificationResult
           isCat={workflow.isCat}
           onClassifyAnother={handleReset}
+        />
+      ) : null}
+
+      {workflow.phase === 'error' ? (
+        <ClassificationError
+          onRetry={handleRetry}
+          onChooseAnother={handleReset}
         />
       ) : null}
 
