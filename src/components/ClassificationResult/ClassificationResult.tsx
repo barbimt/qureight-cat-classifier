@@ -19,10 +19,15 @@ export const ClassificationResult = ({
         <AlertDescription>
           {isCat
             ? 'The classifier determined this image contains a cat.'
-            : 'The classifier determined this image does not contain a cat.'}
+            : "The classifier determined this image doesn't contain a cat."}
         </AlertDescription>
       </Alert>
-      <Button type="button" variant="outline" onClick={onClassifyAnother}>
+      <Button
+        type="button"
+        size="lg"
+        variant="outline"
+        onClick={onClassifyAnother}
+      >
         Classify another image
       </Button>
     </div>

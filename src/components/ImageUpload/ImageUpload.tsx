@@ -53,6 +53,7 @@ export const ImageUpload = ({
         />
         <Button
           type="button"
+          size="lg"
           variant="outline"
           disabled={disabled}
           onClick={handleChooseClick}

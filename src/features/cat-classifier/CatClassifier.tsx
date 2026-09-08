@@ -137,10 +137,10 @@ export const CatClassifier = () => {
     workflow.phase === 'invalid' ? workflow.message : null;
 
   return (
-    <main className="flex w-full max-w-lg flex-col items-center gap-6 p-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold">Cat Classifier</h1>
-        <p className="text-sm text-muted-foreground">
+    <main className="flex w-full max-w-lg flex-col items-center gap-8 p-6 md:p-10">
+      <div className="space-y-3 text-center">
+        <h1>Cat Classifier</h1>
+        <p className="text-base text-muted-foreground">
           Upload a JPEG image to find out if it contains a cat.
         </p>
       </div>
@@ -173,7 +173,7 @@ export const CatClassifier = () => {
       ) : null}
 
       {canSubmit ? (
-        <Button type="button" onClick={handleSubmit}>
+        <Button type="button" size="lg" onClick={handleSubmit}>
           Classify image
         </Button>
       ) : null}
