@@ -1,9 +1,10 @@
-import { useId, useRef, type ChangeEvent } from 'react';
+import { useId, useRef, type ChangeEvent, type RefObject } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { FILE_INPUT_ACCEPT } from '@/types/classification';
 
 type ImageUploadProps = {
+  inputRef?: RefObject<HTMLInputElement | null>;
   previewUrl: string | null;
   fileName: string | null;
   validationError: string | null;
@@ -12,6 +13,7 @@ type ImageUploadProps = {
 };
 
 export const ImageUpload = ({
+  inputRef,
   previewUrl,
   fileName,
   validationError,
@@ -20,7 +22,8 @@ export const ImageUpload = ({
 }: ImageUploadProps) => {
   const inputId = useId();
   const errorId = useId();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const fallbackInputRef = useRef<HTMLInputElement>(null);
+  const resolvedInputRef = inputRef ?? fallbackInputRef;
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -28,7 +31,7 @@ export const ImageUpload = ({
   };
 
   const handleChooseClick = () => {
-    inputRef.current?.click();
+    resolvedInputRef.current?.click();
   };
 
   const describedBy = validationError ? errorId : undefined;
@@ -38,7 +41,7 @@ export const ImageUpload = ({
       <div className="flex flex-col gap-2">
         <Label htmlFor={inputId}>JPEG image</Label>
         <input
-          ref={inputRef}
+          ref={resolvedInputRef}
           id={inputId}
           type="file"
           accept={FILE_INPUT_ACCEPT}
