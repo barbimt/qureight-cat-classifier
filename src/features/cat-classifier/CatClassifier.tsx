@@ -43,27 +43,28 @@ export const CatClassifier = () => {
   const [workflow, setWorkflow] = useState<WorkflowState>({ phase: 'idle' });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const isSubmittingRef = useRef(false);
+  const previewUrlRef = useRef<string | null>(null);
   const activePreviewUrl = getPreviewUrl(workflow);
 
-  useEffect(() => {
-    return () => {
-      if (activePreviewUrl) {
-        URL.revokeObjectURL(activePreviewUrl);
-      }
-    };
-  }, [activePreviewUrl]);
-
-  const revokePreview = (previewUrl: string | null) => {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
+  const clearPreviewUrl = () => {
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+      previewUrlRef.current = null;
     }
   };
 
-  const handleFileChange = (file: File | null) => {
-    const currentPreviewUrl = getPreviewUrl(workflow);
+  const replacePreviewUrl = (file: File): string => {
+    clearPreviewUrl();
+    const previewUrl = URL.createObjectURL(file);
+    previewUrlRef.current = previewUrl;
+    return previewUrl;
+  };
 
+  useEffect(() => clearPreviewUrl, []);
+
+  const handleFileChange = (file: File | null) => {
     if (!file) {
-      revokePreview(currentPreviewUrl);
+      clearPreviewUrl();
       setWorkflow({ phase: 'idle' });
       return;
     }
@@ -71,13 +72,12 @@ export const CatClassifier = () => {
     const validation = validateImageFile(file);
 
     if (!validation.valid) {
-      revokePreview(currentPreviewUrl);
+      clearPreviewUrl();
       setWorkflow({ phase: 'invalid', message: validation.message });
       return;
     }
 
-    revokePreview(currentPreviewUrl);
-    const previewUrl = URL.createObjectURL(file);
+    const previewUrl = replacePreviewUrl(file);
     setWorkflow({ phase: 'ready', file, previewUrl });
   };
 
@@ -121,7 +121,7 @@ export const CatClassifier = () => {
   };
 
   const handleReset = () => {
-    revokePreview(getPreviewUrl(workflow));
+    clearPreviewUrl();
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';

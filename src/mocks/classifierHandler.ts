@@ -1,4 +1,7 @@
-import { JPEG_MIME_TYPE } from '../types/classification.ts';
+import {
+  type ClassifyImageResponse,
+  JPEG_MIME_TYPE,
+} from '../types/classification.js';
 
 export class ClassifierRejection extends Error {
   readonly status: number;
@@ -15,14 +18,14 @@ export type ClassifyUploadInput = {
   mimeType: string;
 };
 
-export const classifyUpload = async (
+export const classifyUpload = (
   input: ClassifyUploadInput,
-): Promise<{ isCat: boolean }> => {
+): ClassifyImageResponse => {
   if (input.mimeType !== JPEG_MIME_TYPE) {
     throw new ClassifierRejection(400, 'Only JPEG images are supported.');
   }
 
-  const filename = (input.filename ?? '').toLowerCase();
+  const filename = input.filename.toLowerCase();
 
   if (filename.includes('fail')) {
     throw new ClassifierRejection(500, 'Classification failed.');
@@ -31,9 +34,3 @@ export const classifyUpload = async (
   const isCat = filename.includes('cat');
   return { isCat };
 };
-
-export const classifyFile = async (file: File): Promise<{ isCat: boolean }> =>
-  classifyUpload({
-    filename: file.name,
-    mimeType: file.type,
-  });
