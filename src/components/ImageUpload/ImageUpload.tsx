@@ -5,6 +5,7 @@ import { FILE_INPUT_ACCEPT } from '@/types/classification';
 
 type ImageUploadProps = {
   inputRef?: RefObject<HTMLInputElement | null>;
+  chooseButtonRef?: RefObject<HTMLButtonElement | null>;
   previewUrl: string | null;
   fileName: string | null;
   validationError: string | null;
@@ -14,6 +15,7 @@ type ImageUploadProps = {
 
 export const ImageUpload = ({
   inputRef,
+  chooseButtonRef,
   previewUrl,
   fileName,
   validationError,
@@ -52,6 +54,7 @@ export const ImageUpload = ({
           onChange={handleInputChange}
         />
         <Button
+          ref={chooseButtonRef}
           type="button"
           size="lg"
           variant="outline"

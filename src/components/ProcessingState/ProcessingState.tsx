@@ -17,6 +17,7 @@ export const ProcessingState = ({ fileName }: ProcessingStateProps) => {
           <p
             role="status"
             aria-live="polite"
+            aria-label="Classification in progress"
             className="text-lg font-semibold text-primary"
           >
             Analysing your image...

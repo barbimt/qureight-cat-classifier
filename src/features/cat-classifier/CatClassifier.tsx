@@ -42,6 +42,7 @@ const getFileName = (workflow: WorkflowState): string | null => {
 export const CatClassifier = () => {
   const [workflow, setWorkflow] = useState<WorkflowState>({ phase: 'idle' });
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const chooseButtonRef = useRef<HTMLButtonElement>(null);
   const isSubmittingRef = useRef(false);
   const previewUrlRef = useRef<string | null>(null);
   const activePreviewUrl = getPreviewUrl(workflow);
@@ -128,7 +129,7 @@ export const CatClassifier = () => {
     }
 
     setWorkflow({ phase: 'idle' });
-    fileInputRef.current?.focus();
+    chooseButtonRef.current?.focus();
   };
 
   const isProcessing = workflow.phase === 'processing';
@@ -147,6 +148,7 @@ export const CatClassifier = () => {
 
       <ImageUpload
         inputRef={fileInputRef}
+        chooseButtonRef={chooseButtonRef}
         previewUrl={activePreviewUrl}
         fileName={getFileName(workflow)}
         validationError={validationError}
