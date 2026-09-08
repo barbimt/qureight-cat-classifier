@@ -40,16 +40,12 @@ const sendJson = (
   res.end(JSON.stringify(body));
 };
 
-const getNodeClassifierDelayMs = (): number => {
-  const configured = process.env.VITE_CLASSIFIER_DELAY_MS;
+const MOCK_RESPONSE_DELAY_MS = 2_000;
 
-  if (configured === undefined || configured === '') {
-    return 60_000;
-  }
-
-  const parsed = Number(configured);
-  return Number.isFinite(parsed) ? parsed : 60_000;
-};
+const wait = (delayMs: number): Promise<void> =>
+  new Promise((resolve) => {
+    setTimeout(resolve, delayMs);
+  });
 
 export const handleClassifierRequest = async (
   req: IncomingMessage,
@@ -63,9 +59,8 @@ export const handleClassifierRequest = async (
       return;
     }
 
-    const result = await classifyUpload(upload, {
-      delayMs: getNodeClassifierDelayMs(),
-    });
+    await wait(MOCK_RESPONSE_DELAY_MS);
+    const result = await classifyUpload(upload);
     sendJson(res, 200, result);
   } catch (error) {
     if (error instanceof ClassifierRejection) {

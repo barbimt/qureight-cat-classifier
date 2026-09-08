@@ -8,9 +8,6 @@ export default mergeConfig(
       environment: 'jsdom',
       setupFiles: './src/test/setup.ts',
       fileParallelism: false,
-      env: {
-        VITE_CLASSIFIER_DELAY_MS: '0',
-      },
     },
   }),
 );
