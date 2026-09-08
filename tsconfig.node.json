@@ -3,8 +3,13 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "es2023",
     "lib": ["ES2023"],
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "ignoreDeprecations": "6.0",
 
     /* Bundler mode */
     "module": "nodenext",
@@ -14,10 +19,18 @@
     "noEmit": true,
 
     /* Linting */
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "vitest.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "vitest.config.ts",
+    "src/mocks/devServerPlugin.ts",
+    "src/mocks/handleClassifierRequest.ts",
+    "src/mocks/classifierHandler.ts",
+    "src/types/classification.ts"
+  ]
 }

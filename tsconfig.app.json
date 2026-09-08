@@ -28,5 +28,9 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/mocks/devServerPlugin.ts",
+    "src/mocks/handleClassifierRequest.ts"
+  ]
 }
