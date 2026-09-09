@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import busboy from 'busboy';
+import { IMAGE_FIELD_NAME } from '../types/classification.js';
 import { ClassifierRejection, classifyUpload } from './classifierHandler.ts';
 
 type ParsedUpload = {
@@ -14,7 +15,12 @@ const parseMultipartUpload = (
     const parser = busboy({ headers: req.headers });
     let upload: ParsedUpload | null = null;
 
-    parser.on('file', (_fieldName, fileStream, info) => {
+    parser.on('file', (fieldName, fileStream, info) => {
+      if (fieldName !== IMAGE_FIELD_NAME) {
+        fileStream.resume();
+        return;
+      }
+
       upload = {
         filename: info.filename ?? '',
         mimeType: info.mimeType,

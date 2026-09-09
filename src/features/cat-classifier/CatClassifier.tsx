@@ -149,7 +149,7 @@ export const CatClassifier = () => {
         </div>
         <h1>Cat Classifier</h1>
         <p className="text-sm text-muted-foreground sm:text-base sm:whitespace-nowrap">
-          Upload a JPEG/JPG image to find out if it contains a cat.
+          Upload a JPEG image to find out if it contains a cat.
         </p>
       </div>
 

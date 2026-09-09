@@ -15,6 +15,7 @@ export const ClassificationResult = ({
   return (
     <div className="flex w-full min-w-0 max-w-md flex-col">
       <Alert
+        role="status"
         className={cn(
           'block w-full min-w-0 px-3 py-3',
           isCat &&

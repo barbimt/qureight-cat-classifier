@@ -28,7 +28,7 @@ describe('CatClassifier', () => {
 
     await uploadFile(user, file);
 
-    expect(screen.getByText('JPEG/JPG only')).toBeInTheDocument();
+    expect(screen.getByText('JPEG only')).toBeInTheDocument();
     expect(screen.getByText('photo.jpg')).toBeInTheDocument();
     expect(screen.getByAltText('Preview of photo.jpg')).toBeInTheDocument();
     expect(
@@ -222,7 +222,7 @@ describe('CatClassifier', () => {
     await user.click(screen.getByRole('button', { name: 'Start over' }));
 
     expect(
-      screen.getByRole('button', { name: 'Choose a JPEG/JPG image' }),
+      screen.getByRole('button', { name: 'Choose a JPEG image' }),
     ).toBeInTheDocument();
     expect(screen.queryByText('cat.jpg')).not.toBeInTheDocument();
 
