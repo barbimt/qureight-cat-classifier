@@ -4,6 +4,8 @@ A small React app built for the Qureight coding challenge.
 
 Users can upload a JPEG image and send it to a mock `/isthisacat` API to check whether the image contains a cat.
 
+Live demo: [qureight-cat-classifier.vercel.app](https://qureight-cat-classifier.vercel.app/)
+
 ## Getting started
 
 ```bash
