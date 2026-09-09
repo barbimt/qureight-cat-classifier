@@ -2,7 +2,7 @@
 
 A small React app built for the Qureight coding challenge.
 
-Users can upload a JPEG image and send it to a mock `/isthisacat` API to check whether the image contains a cat.
+Users can upload a JPEG/JPG image and send it to a mock `/isthisacat` API to check whether the image contains a cat.
 
 ## Getting started
 
@@ -21,7 +21,7 @@ http://localhost:5173
 
 The user can:
 
-1. Select a JPEG image
+1. Select a JPEG/JPG image
 2. Submit it for classification
 3. See a loading state while the image is being processed
 4. See whether the image contains a cat
