@@ -48,15 +48,6 @@ npm run check      # lint, format, types, tests and build
 npm run test:e2e   # Playwright against the dev server and mock API
 ```
 
-## Deploy on Vercel
-
-1. Push this repo to GitHub.
-2. In [Vercel](https://vercel.com/new), import the repository.
-3. Keep the defaults: **Vite**, build command `npm run build`, output `dist`.
-4. Deploy.
-
-The mock `/isthisacat` endpoint is provided by a Vercel serverless function in production.
-
 ## Notes
 
 The classification logic in this repository is only a development mock. In a real application, the frontend would keep the same API contract and call the real ML service instead.
