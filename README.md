@@ -1,19 +1,83 @@
-# Qureight Coding Challenge
+# Cat Classifier
 
-The machine learning team have made the world’s most powerful cat classifier, but it’s
-not quite ready yet. They tell you it takes around *60 seconds* to confirm if a JPEG
-image sent to a server is a cat.
+A small React app built for the Qureight coding challenge.
 
-You have been tasked with making a simple frontend web application that allows a user to
-upload a single image to an `/isthisacat` endpoint. The API is not ready yet, so you
-will need to build a simple mock REST API for it.
+Users can upload a JPEG/JPG image and send it to a mock `/isthisacat` API to check whether the image contains a cat.
 
-A very high value client wants to see a demo of how this might work, and the Head of
-Quality is expecting a robust and reliable system.
+## Getting started
 
-## Constraints
+```bash
+npm ci
+npm run dev
+```
 
-- App should make use of React
-- Use a UI library of your choice
-- Task should be completed in 2 hours or less
-- Use this repository as a template for your app
+Open:
+
+```text
+http://localhost:5173
+```
+
+## How it works
+
+The user can:
+
+1. Select a JPEG/JPG image
+2. Submit it for classification
+3. See a loading state while the image is being processed
+4. See whether the image contains a cat
+5. Retry after an error or choose another image
+
+The real ML API was not available for the challenge, so the project includes a small mock API using Vite middleware.
+
+### Mock behaviour
+
+The mock uses the filename to return predictable results:
+
+| Filename        | Result               |
+| --------------- | -------------------- |
+| Contains `cat`  | `{ "isCat": true }`  |
+| Contains `fail` | Server error         |
+| Any other JPEG  | `{ "isCat": false }` |
+
+A short delay is also added to simulate the real classifier response time.
+
+## Tech stack
+
+* React 19
+* TypeScript
+* Vite
+* Tailwind CSS
+* shadcn/ui
+* Vitest
+* React Testing Library
+* MSW
+* Playwright
+
+## Testing
+
+Unit and integration tests use Vitest, React Testing Library and MSW.
+
+Playwright is used for the main browser-level flow against the running Vite app and mock API.
+
+Run the checks with:
+
+```bash
+npm run check
+npm run test:e2e
+```
+
+## Useful scripts
+
+```bash
+npm run dev          # Start the development server
+npm run test         # Run Vitest in watch mode
+npm run test:run     # Run Vitest once
+npm run test:e2e     # Run Playwright tests
+npm run test:e2e:ui  # Open Playwright UI mode
+npm run build        # Create a production build
+npm run check        # Run lint, format, types, tests and build
+```
+
+## Notes
+
+The classification logic in this repository is only a development mock. In a real application, the frontend would keep the same API contract and call the real ML service instead.
