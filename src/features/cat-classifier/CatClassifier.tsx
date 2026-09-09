@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Cat } from 'lucide-react';
 import { classifyImage } from '@/api/classifyImage';
 import { ClassificationError } from '@/components/ClassificationError/ClassificationError';
 import { ClassificationResult } from '@/components/ClassificationResult/ClassificationResult';
@@ -138,11 +139,17 @@ export const CatClassifier = () => {
     workflow.phase === 'invalid' ? workflow.message : null;
 
   return (
-    <main className="flex w-full max-w-lg flex-col items-center gap-8 p-6 md:p-10">
-      <div className="space-y-3 text-center">
+    <main className="flex w-full min-w-0 max-w-lg flex-col items-center gap-8 p-4">
+      <div className="flex w-full flex-col items-center gap-3 text-center">
+        <div
+          className="flex size-12 items-center justify-center rounded-xl bg-primary/10"
+          aria-hidden="true"
+        >
+          <Cat className="size-6 text-primary" />
+        </div>
         <h1>Cat Classifier</h1>
-        <p className="text-base text-muted-foreground">
-          Upload a JPEG image to find out if it contains a cat.
+        <p className="text-sm text-muted-foreground sm:text-base sm:whitespace-nowrap">
+          Upload a JPEG/JPG image to find out if it contains a cat.
         </p>
       </div>
 
@@ -175,7 +182,12 @@ export const CatClassifier = () => {
       ) : null}
 
       {canSubmit ? (
-        <Button type="button" size="lg" onClick={handleSubmit}>
+        <Button
+          type="button"
+          size="lg"
+          className="w-full max-w-md"
+          onClick={handleSubmit}
+        >
           Classify image
         </Button>
       ) : null}

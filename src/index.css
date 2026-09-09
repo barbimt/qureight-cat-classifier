@@ -132,7 +132,7 @@
     @apply font-sans;
   }
   h1 {
-    @apply text-4xl leading-tight font-semibold text-primary;
+    @apply text-3xl leading-tight font-semibold text-primary;
   }
   h2,
   h3,
