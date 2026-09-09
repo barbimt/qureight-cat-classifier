@@ -3,7 +3,10 @@ import { expect, test } from '@playwright/test';
 test('classifies a JPEG image as a cat', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByLabel('JPEG image').setInputFiles('e2e/fixtures/my-cat.jpg');
+  const fileChooserPromise = page.waitForEvent('filechooser');
+  await page.getByRole('button', { name: 'Choose a JPEG/JPG image' }).click();
+  const fileChooser = await fileChooserPromise;
+  await fileChooser.setFiles('e2e/fixtures/my-cat.jpg');
 
   await page.getByRole('button', { name: 'Classify image' }).click();
 
@@ -18,9 +21,9 @@ test('classifies a JPEG image as a cat', async ({ page }) => {
   await expect(result).toBeVisible();
   await expect(result).toContainText("It's a cat");
 
-  await page.getByRole('button', { name: 'Classify another image' }).click();
+  await page.getByRole('button', { name: 'Start over' }).click();
 
   await expect(
-    page.getByRole('button', { name: 'Choose JPEG image' }),
+    page.getByRole('button', { name: 'Choose a JPEG/JPG image' }),
   ).toBeVisible();
 });
