@@ -4,7 +4,7 @@ test('classifies a JPEG image as a cat', async ({ page }) => {
   await page.goto('/');
 
   const fileChooserPromise = page.waitForEvent('filechooser');
-  await page.getByRole('button', { name: 'Choose a JPEG/JPG image' }).click();
+  await page.getByRole('button', { name: 'Choose a JPEG image' }).click();
   const fileChooser = await fileChooserPromise;
   await fileChooser.setFiles('e2e/fixtures/my-cat.jpg');
 
@@ -16,7 +16,7 @@ test('classifies a JPEG image as a cat', async ({ page }) => {
     }),
   ).toBeVisible();
 
-  const result = page.getByRole('alert');
+  const result = page.getByRole('status');
 
   await expect(result).toBeVisible();
   await expect(result).toContainText("It's a cat");
@@ -24,6 +24,6 @@ test('classifies a JPEG image as a cat', async ({ page }) => {
   await page.getByRole('button', { name: 'Start over' }).click();
 
   await expect(
-    page.getByRole('button', { name: 'Choose a JPEG/JPG image' }),
+    page.getByRole('button', { name: 'Choose a JPEG image' }),
   ).toBeVisible();
 });

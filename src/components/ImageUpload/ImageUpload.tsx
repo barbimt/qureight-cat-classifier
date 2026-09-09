@@ -60,15 +60,15 @@ export const ImageUpload = ({
 
   const describedBy = validationError ? errorId : undefined;
   const chooseLabel = fileName
-    ? 'Choose a different JPEG/JPG image'
-    : 'Choose a JPEG/JPG image';
+    ? 'Choose a different JPEG image'
+    : 'Choose a JPEG image';
 
   return (
     <div className="flex w-full max-w-md flex-col gap-4">
       <div className="overflow-hidden rounded-xl border bg-card ring-1 ring-foreground/10">
         <div className="flex items-center border-b px-3 py-2">
           <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-            JPEG/JPG only
+            JPEG only
           </span>
         </div>
 

@@ -26,6 +26,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
+    "api/**/*.ts",
     "vite.config.ts",
     "vitest.config.ts",
     "src/mocks/devServerPlugin.ts",
