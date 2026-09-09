@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite';
-import { handleClassifierRequest } from './handleClassifierRequest.ts';
+import { handleClassifierRequest } from './handleClassifierRequest.js';
 
 export const mockClassifierApiPlugin = (): Plugin => ({
   name: 'mock-classifier-api',

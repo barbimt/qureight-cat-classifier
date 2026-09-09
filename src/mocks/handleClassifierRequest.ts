@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import busboy from 'busboy';
 import { IMAGE_FIELD_NAME } from '../types/classification.js';
-import { ClassifierRejection, classifyUpload } from './classifierHandler.ts';
+import { ClassifierRejection, classifyUpload } from './classifierHandler.js';
 
 type ParsedUpload = {
   filename: string;

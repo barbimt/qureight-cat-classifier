@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { handleClassifierRequest } from '../src/mocks/handleClassifierRequest.ts';
+import { handleClassifierRequest } from '../src/mocks/handleClassifierRequest.js';
 
 export const config = {
   api: {
